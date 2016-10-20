@@ -1,0 +1,123 @@
+#axes-chart, #gyroscope-chart, #accelerometer-chart, #pid-chart {
+  height: 150px;
+  width: 100%;
+
+  path {
+    stroke: chartreuse;
+    &.pitch {
+      stroke: red;
+    }
+    &.roll {
+      stroke: blue;
+    }
+
+
+    stroke-width: 1;
+    fill: none;
+  }
+
+  .tmp {
+    &.error {
+      stroke: red;
+      stroke-width: 2;
+    }
+    &.output {
+      stroke: green;
+      stroke-width: 2;
+    }
+
+    &.proportional {
+      stroke: blue;
+    }
+
+    &.integrative {
+      stroke: orange;
+    }
+
+    &.derivative {
+      stroke: aqua;
+    }
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+}
+
+.legend {
+      &.pitch, &.error {
+      color: red;
+    }
+    &.roll {
+      color: blue;
+    }
+
+    &.output {
+      color: green;
+    }
+
+    &.proportional_term {
+      color: blue;
+    }
+
+    &.integrative_term {
+      color: orange;
+    }
+
+    &.derivative_term {
+      color: aqua ;
+    }
+}
+#axes-chart {
+  height: 300px;
+}
+
+#pid-chart {
+  height: 250px;
+}
+
+#looptime-chart {
+  height: 150px;
+  path {
+    stroke: steelblue;
+    &.complete {
+      stroke: red;
+    }
+    &.partial {
+      stroke: blue;
+    }
+    stroke-width: 1;
+    fill: none;
+  }
+}
+
+#repartitions-chart {
+
+}
+
+#receiver-chart {
+  width: 100%;
+  height: 200px;
+
+  .bar {
+    fill: steelblue;
+  }
+
+  .axis {
+    font: 10px sans-serif;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .x.axis path {
+    // display: none;
+  }
+}
