@@ -1,31 +1,28 @@
-# Elicopter Ground Station [![Slack Status](https://elicopter-slackin.herokuapp.com/badge.svg)](https://elicopter-slackin.herokuapp.com/)
+# GroundStation
 
-Ground station for Elicopter core flight controller.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.2.
 
-## Getting Started
+## Development server
 
-Install dependencies:
-```
-mix deps.get
-npm install
-```
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Run locally:
-```
-mix phoenix.server
-```
+## Code scaffolding
 
-## Contributing
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
 
-Please read [CONTRIBUTING.md](https://github.com/elicopter/elicopter/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+## Build
 
-## Authors
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-* **Loic Vigneron** - [Spin42](https://github.com/spin42)
-* **Marc Lainez** - [Spin42](https://github.com/spin42)
-* **Thibault Poncelet** - [Spin42](https://github.com/spin42)
-* **Who's next? :)**
+## Running unit tests
 
-## License
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-This project is licensed under the MIT License - see the [https://github.com/elicopter/elicopter/blob/master/LICENSE.md](LICENSE.md) file for details
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Before running the tests make sure you are serving the app via `ng serve`.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
