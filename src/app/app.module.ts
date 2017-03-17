@@ -10,7 +10,8 @@ import { CatchAllComponent }      from "./catch-all/catch-all.component";
 import { NavigationBarComponent } from "./navigation-bar/navigation-bar.component";
 
 import { HomeModule }      from "./home/home.module";
-import { DashboardModule } from "./dashboard/dashboard.module";
+import { MonitoringModule } from "./monitoring/monitoring.module";
+import { SocketService }   from "./socket/socket.service";
 
 export const routes = [
   { path: "**", component: CatchAllComponent }
@@ -29,9 +30,9 @@ export const routes = [
     RouterModule.forRoot(routes),
     NgbModule.forRoot(),
     HomeModule,
-    DashboardModule
+    MonitoringModule
   ],
-  providers: [],
+  providers: [SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
