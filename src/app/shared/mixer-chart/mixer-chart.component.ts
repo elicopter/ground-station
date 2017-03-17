@@ -24,6 +24,11 @@ export class MixerChartComponent {
         top: 10
       }
     },
+    animation:{
+      duration: 0,
+      easing: "linear",
+      animateScale: false
+    },
     scale: {
       ticks: {
         display: false,

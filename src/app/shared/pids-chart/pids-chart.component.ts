@@ -25,6 +25,11 @@ export class PIDsChartComponent {
           max: 1000
         }
       }]
+    },
+    animation:{
+      duration: 0,
+      easing: "linear",
+      animateScale: false
     }
   };
   public chartPIDs:string[] = ["pitch_rate", "roll_rate", "yaw_rate", "pitch_angle", "roll_angle"];

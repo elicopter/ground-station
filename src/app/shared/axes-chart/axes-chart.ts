@@ -13,10 +13,13 @@ export class AxesChart {
   public chartLabels:Array<any> = new Array(this.maximumValues);
   public chartOptions:any = {
     responsive: true,
+    tooltips: {
+      enabled: false
+    },
     animation:{
       duration: 0,
       easing: "linear",
-      animateScale:true
+      animateScale: false
     }
   };
   public chartColors:Array<any> = [
