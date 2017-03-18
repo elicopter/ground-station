@@ -9,7 +9,7 @@ import { Subscription } from "rxjs/Subscription";
 })
 
 export class PIDsChartComponent {
-  private channelSubscription: Subscription;
+  private channelSubscriptions: Array<Subscription> = [];
   private channelName:string = "black_box:pids";
 
   public chartOptions:any = {
@@ -21,8 +21,8 @@ export class PIDsChartComponent {
     scales: {
       yAxes: [{
         ticks: {
-          min: -1000,
-          max: 1000
+          min: -500,
+          max: 500
         }
       }]
     },
@@ -32,7 +32,7 @@ export class PIDsChartComponent {
       animateScale: false
     }
   };
-  public chartPIDs:string[] = ["pitch_rate", "roll_rate", "yaw_rate", "pitch_angle", "roll_angle"];
+  public chartPIDs:string[] = ["pitch_rate_pid_controller", "roll_rate_pid_controller", "yaw_rate_pid_controller", "pitch_angle_pid_controller", "roll_angle_pid_controller"];
   public chartLabels:string[] = ["Pitch Rate", "Roll Rate", "Yaw Rate", "Pitch Angle", "Roll Angle"];
   public chartLegend:boolean = true;
 
@@ -47,19 +47,24 @@ export class PIDsChartComponent {
   constructor(private socketService: SocketService) {}
 
   ngOnInit(): void {
-    this.channelSubscription = this.socketService.on(this.channelName, "data", 5).subscribe(data => {
-      let index = this.chartPIDs.indexOf(data["name"])
-      this.chartData[0].data[index] = data["proportional_term"]
-      this.chartData[1].data[index] = data["integrative_term"]
-      this.chartData[2].data[index] = data["derivative_term"]
-      this.chartData[3].data[index] = data["error"]
-      this.chartData[4].data[index] = data["output"]
+    this.chartPIDs.forEach(chartPid => {
+      let index = this.chartPIDs.indexOf(chartPid);
+      this.channelSubscriptions.push(this.socketService.on("black_box:" + chartPid, "data").subscribe(data => {
+        this.chartData[0].data[index] = data["proportional_term"]
+        this.chartData[1].data[index] = data["integrative_term"]
+        this.chartData[2].data[index] = data["derivative_term"]
+        this.chartData[3].data[index] = data["error"]
+        this.chartData[4].data[index] = data["output"]
 
-      this.chartData = this.chartData.slice();
-    })
+        this.chartData = this.chartData.slice();
+      }))
+    });
+
   }
 
   ngOnDestroy(): void {
-    this.channelSubscription.unsubscribe();
+    this.channelSubscriptions.forEach(function(channelSubscription) {
+      channelSubscription.unsubscribe();
+    });
   }
 }

@@ -58,7 +58,7 @@ export class AxesChart {
     }
 
   ngOnInit(): void {
-    this.channelSubscription = this.socketService.on(this.channelName, "data", 5).subscribe(data => {
+    this.channelSubscription = this.socketService.on(this.channelName, "data").subscribe(data => {
       for (let dataset of this.chartData) {
         this.addDataPoint(dataset, data[dataset["key"]])
       }

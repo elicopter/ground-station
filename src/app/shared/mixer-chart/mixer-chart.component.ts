@@ -41,7 +41,7 @@ export class MixerChartComponent {
   constructor(private socketService: SocketService) {}
 
   ngOnInit(): void {
-    this.channelSubscription = this.socketService.on(this.channelName, "data", 5).subscribe(data => {
+    this.channelSubscription = this.socketService.on(this.channelName, "data").subscribe(data => {
       this.chartData = [{data: [data["2"], data["1"], data["3"], data["4"]]}];
     })
   }
