@@ -1,0 +1,32 @@
+.full-height {
+  overflow: hidden;
+}
+
+table {
+  pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  }
+}
+
+.processes {
+  overflow: scroll;
+  padding: 10px;
+  margin-bottom: 210px;
+}
+
+.metric-outer {
+  padding: 10px;
+}
+
+.metric-inner {
+  height: 50px;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 50px;
+  color: white;
+  background: rgba(3, 136, 216, 0.5); 
+}

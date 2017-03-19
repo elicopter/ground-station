@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { ElicopterService } from "app/shared/elicopter/elicopter.service";
+import { Elicopter } from "app/shared/elicopter/elicopter.model";
 
 @Component({
   selector:    "navigation-bar",
@@ -6,4 +8,12 @@ import { Component, OnInit } from "@angular/core";
   styleUrls:   ["navigation-bar.component.scss"]
 })
 
-export class NavigationBarComponent {}
+export class NavigationBarComponent {
+  private elicopter: Elicopter;
+  constructor(private elicopterService: ElicopterService) {
+    this.elicopterService.getSelectedElicopter().subscribe(elicopter => {
+      this.elicopter = elicopter;
+    });
+  }
+
+}

@@ -8,9 +8,19 @@
       <li class="nav-item">
         <a class="nav-link" href="#" [routerLink]="['/']">Home</a>
       </li>
+      <!--<li class="nav-item">
+        <a class="nav-link" href="#" [routerLink]="['/sensors']">Sensors</a>
+      </li>-->
       <li class="nav-item">
-        <a class="nav-link" href="#" [routerLink]="['/monitoring']">Monitoring</a>
+        <a class="nav-link" href="#" [routerLink]="['/pids']">PIDs</a>
       </li>
     </ul>
+
+    <span *ngIf="elicopter" class="navbar-text">
+      {{elicopter.name}} connected
+    </span>
+    <span *ngIf="!elicopter" class="navbar-text">
+      Elicopter not found
+    </span>
   </div>
 </nav>

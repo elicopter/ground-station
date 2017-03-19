@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
-import { SocketService } from "app/socket/socket.service";
 import { AxesChart } from "app/shared/axes-chart/axes-chart";
 import { Subscription } from "rxjs/Subscription";
+import { ElicopterService } from "../elicopter/elicopter.service";
 
 @Component({
   selector:    "mixer-chart",
@@ -38,10 +38,10 @@ export class MixerChartComponent {
     }
   };
 
-  constructor(private socketService: SocketService) {}
+  constructor(private elicopterService: ElicopterService) {}
 
   ngOnInit(): void {
-    this.channelSubscription = this.socketService.on(this.channelName, "data").subscribe(data => {
+    this.channelSubscription = this.elicopterService.onChannelEvent(this.channelName, "data").subscribe(data => {
       this.chartData = [{data: [data["2"], data["1"], data["3"], data["4"]]}];
     })
   }

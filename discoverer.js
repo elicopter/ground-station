@@ -32,5 +32,8 @@ searchElicopters();
 winston.info("Starting Web Server...");
 var server = http.createServer(function (req, res) {
   res.setHeader("Content-Type", "application/json");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type");
   res.end(JSON.stringify(elicopters));
 }).listen(4201);

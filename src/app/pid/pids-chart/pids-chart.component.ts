@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
-import { SocketService } from "app/socket/socket.service";
 import { AxesChart } from "app/shared/axes-chart/axes-chart";
 import { Subscription } from "rxjs/Subscription";
+import { ElicopterService } from "app/shared/elicopter/elicopter.service";
 
 @Component({
   selector:    "pids-chart",
@@ -44,12 +44,12 @@ export class PIDsChartComponent {
     {data: [], label: "Output"}
   ];
 
-  constructor(private socketService: SocketService) {}
+  constructor(private elicopterService: ElicopterService) {}
 
   ngOnInit(): void {
     this.chartPIDs.forEach(chartPid => {
       let index = this.chartPIDs.indexOf(chartPid);
-      this.channelSubscriptions.push(this.socketService.on("black_box:" + chartPid, "data").subscribe(data => {
+      this.channelSubscriptions.push(this.elicopterService.onChannelEvent("black_box:" + chartPid, "data").subscribe(data => {
         this.chartData[0].data[index] = data["proportional_term"]
         this.chartData[1].data[index] = data["integrative_term"]
         this.chartData[2].data[index] = data["derivative_term"]
@@ -66,5 +66,6 @@ export class PIDsChartComponent {
     this.channelSubscriptions.forEach(function(channelSubscription) {
       channelSubscription.unsubscribe();
     });
+    this.channelSubscriptions = [];
   }
 }

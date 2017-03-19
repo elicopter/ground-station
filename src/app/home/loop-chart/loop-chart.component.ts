@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
-import { SocketService } from "app/socket/socket.service";
 import { AxesChart } from "app/shared/axes-chart/axes-chart";
 import { Subscription } from "rxjs/Subscription";
+import { ElicopterService } from "app/shared/elicopter/elicopter.service";
 
 @Component({
   selector:    "loop-chart",
@@ -49,10 +49,10 @@ export class LoopChartComponent {
   public chartLegend:boolean = true;
   public chartType:string = 'line';
 
-  constructor(private socketService: SocketService) {}
+  constructor(private elicopterService: ElicopterService) {}
 
   ngOnInit(): void {
-    this.channelSubscription = this.socketService.on(this.channelName, "data").subscribe(data => {
+    this.channelSubscription = this.elicopterService.onChannelEvent(this.channelName, "data").subscribe(data => {
       for (let dataset of this.chartData) {
         this.addDataPoint(dataset, data[dataset["key"]])
       }

@@ -9,9 +9,12 @@ import { AppComponent }           from "./app.component";
 import { CatchAllComponent }      from "./catch-all/catch-all.component";
 import { NavigationBarComponent } from "./navigation-bar/navigation-bar.component";
 
-import { HomeModule }      from "./home/home.module";
-import { MonitoringModule } from "./monitoring/monitoring.module";
-import { SocketService }   from "./socket/socket.service";
+import { HomeModule } from "./home/home.module";
+import { SensorModule } from "./sensor/sensor.module";
+import { PIDModule } from "./pid/pid.module";
+
+import { ElicopterService } from "./shared/elicopter/elicopter.service";
+import { HttpService } from "app/shared/http/http.service";
 
 export const routes = [
   { path: "**", component: CatchAllComponent }
@@ -30,9 +33,10 @@ export const routes = [
     RouterModule.forRoot(routes),
     NgbModule.forRoot(),
     HomeModule,
-    MonitoringModule
+    SensorModule,
+    PIDModule
   ],
-  providers: [SocketService],
+  providers: [ElicopterService, HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

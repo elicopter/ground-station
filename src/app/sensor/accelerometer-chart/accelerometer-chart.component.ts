@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { SocketService } from "app/socket/socket.service";
 import { AxesChart } from "app/shared/axes-chart/axes-chart";
+import { ElicopterService } from "app/shared/elicopter/elicopter.service";
 
 @Component({
   selector:    "accelerometer-chart",
@@ -8,7 +8,7 @@ import { AxesChart } from "app/shared/axes-chart/axes-chart";
 })
 
 export class AccelerometerChartComponent extends AxesChart {
-  constructor(socketService: SocketService) {
-    super(socketService, "black_box:accelerometer");
+  constructor(elicopterService: ElicopterService) {
+    super(elicopterService, "black_box:accelerometer");
   }
 }

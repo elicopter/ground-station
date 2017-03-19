@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { SocketService } from "app/socket/socket.service";
 import { Subscription } from "rxjs/Subscription";
+import { ElicopterService } from "../elicopter/elicopter.service";
 
 export class AxesChart {
   private maximumValues: number = 20;
@@ -52,13 +52,13 @@ export class AxesChart {
   public chartType:string = 'line';
 
   constructor(
-    private socketService: SocketService,
+    private elicopterService: ElicopterService,
     private channelName: string, datasets?: Array<any>) {
       this.chartData = datasets || this.chartData;
     }
 
   ngOnInit(): void {
-    this.channelSubscription = this.socketService.on(this.channelName, "data").subscribe(data => {
+    this.channelSubscription = this.elicopterService.onChannelEvent(this.channelName, "data").subscribe(data => {
       for (let dataset of this.chartData) {
         this.addDataPoint(dataset, data[dataset["key"]])
       }
