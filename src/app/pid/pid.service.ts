@@ -9,6 +9,15 @@ export class PidService  {
   constructor(private httpService: HttpService, private elicopterService: ElicopterService) {}
 
   list(): Observable<any> {
-    return this.httpService.get("pids").map(response => response.json());
+    return this.httpService.get("pids").map(response => response.json().data);
+  }
+  
+  tune(pid, parameter, value): Observable<any> {
+    let body = {
+      name: pid.name,
+      parameter: parameter,
+      value: value
+    };
+    return this.httpService.post("pids", body);
   }
 }

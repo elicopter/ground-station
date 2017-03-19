@@ -13,9 +13,9 @@ export const routes = [
 
 @NgModule({
   imports: [
+    BrowserModule,
     FormsModule,
     RouterModule.forChild(routes),
-    BrowserModule,
     ChartsModule
   ],
   declarations: [

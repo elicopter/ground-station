@@ -4,7 +4,7 @@ import { Subscription } from "rxjs/Subscription";
 import { ElicopterService } from "app/shared/elicopter/elicopter.service";
 
 @Component({
-  selector:    "home-show",
+  selector: "home-show",
   templateUrl: "home-show.component.html",
   styleUrls: ["./home-show.component.scss"]
 })

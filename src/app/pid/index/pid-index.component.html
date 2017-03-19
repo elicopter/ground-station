@@ -3,3 +3,44 @@
     <pids-chart></pids-chart>
   </div>
 </div>
+<div class="row">
+  <div class="col-md-12">
+    <h2>
+      Controllers
+    </h2>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>kp</th>
+          <th>ki</th>
+          <th>kd</th>
+          <th>Minimum Output</th>
+          <th>Maximum Output</th>
+        </tr>
+      </thead>
+      <tbody class="logs">
+        <tr *ngFor="let pid of pids">
+          <td>{{ pid.name }}</td>
+          <td>
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'kp', 'down')">-</button>
+            {{ pid.kp }}
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'kp', 'up')">+</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'ki', 'down')">-</button>
+            {{ pid.ki }}
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'ki', 'up')">+</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'kd', 'down')">-</button>
+            {{ pid.kd }}
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'kd', 'up')">+</button>
+          </td>
+          <td>{{ pid.minimum_output }}</td>
+          <td>{{ pid.maximum_output }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
