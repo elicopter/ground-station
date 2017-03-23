@@ -14,7 +14,7 @@ import { Elicopter } from "app/shared/elicopter/elicopter.model";
 export class ElicopterService {
   private elicopters: Array<Elicopter> = [];
   private SSDPDiscovererURL = "http://localhost:4201";
-  private selectedElicopterSubject: Subject<Elicopter> = new Subject();
+  private selectedElicopterSubject: ReplaySubject<Elicopter> = new ReplaySubject(1);
   private elicopterSocketSubject: ReplaySubject<Socket> = new ReplaySubject(1);
 
   constructor (private http: Http) {

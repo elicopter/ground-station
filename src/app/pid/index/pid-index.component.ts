@@ -3,13 +3,14 @@ import { PidService } from "app/pid/pid.service";
 import { ElicopterService } from "app/shared/elicopter/elicopter.service";
 
 @Component({
-  selector:    "pid-index",
-  templateUrl: "pid-index.component.html"
+  selector:    "app-pid-index",
+  templateUrl: "pid-index.component.html",
+  styleUrls:   ["./pid-index.component.scss"]
 })
 
 export class PIDIndexComponent implements OnInit {
   private pids: Array<any>;
-  private tuneStep: number = 1/10;
+  private tuneStep: number = 1 / 10;
 
   constructor(private pidService: PidService, private elicopterService: ElicopterService) {}
 
@@ -28,7 +29,7 @@ export class PIDIndexComponent implements OnInit {
     } else {
       newValue -= this.tuneStep;
     }
-    newValue = Math.round(newValue * 100) / 100
+    newValue = Math.round(newValue * 100) / 100;
     this.pidService.tune(pid, parameter, newValue).subscribe(() => {
       pid[parameter] = newValue;
     });

@@ -1,0 +1,29 @@
+table {
+  table-layout: fixed;
+  text-align: center;
+
+  thead {
+    th {
+      text-align: center;
+    }
+  }
+}
+
+.pids {
+
+  .pid-value {
+    display:flex;
+
+    .minus, .value, .plus {
+      flex: 1;
+    }
+
+    .value {
+      text-align: center;
+    }
+
+    .plus {
+      text-align: right;
+    }
+  }
+}

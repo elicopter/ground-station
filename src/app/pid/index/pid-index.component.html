@@ -9,7 +9,7 @@
       Controllers
     </h2>
     <table class="table table-sm">
-      <thead>
+      <thead class="thead-inverse">
         <tr>
           <th>Name</th>
           <th>kp</th>
@@ -19,23 +19,47 @@
           <th>Maximum Output</th>
         </tr>
       </thead>
-      <tbody class="logs">
+      <tbody class="pids">
         <tr *ngFor="let pid of pids">
           <td>{{ pid.name }}</td>
           <td>
-            <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'kp', 'down')">-</button>
-            {{ pid.kp }}
-            <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'kp', 'up')">+</button>
+            <div class="pid-value">
+              <div class="minus">
+                <button type="button" class="btn btn-outline-primary btn-sm"  (click)="tune(pid, 'kp', 'down')">-</button>
+              </div>
+              <div class="value">
+                {{ pid.kp }}
+              </div>
+              <div class="plus">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'kp', 'up')">+</button>
+              </div>
+            </div>
           </td>
           <td>
-            <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'ki', 'down')">-</button>
-            {{ pid.ki }}
-            <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'ki', 'up')">+</button>
+            <div class="pid-value">
+              <div class="minus">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'ki', 'down')">-</button>
+              </div>
+              <div class="value">
+                {{ pid.ki }}
+              </div>
+              <div class="plus">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'ki', 'up')">+</button>
+              </div>
+            </div>
           </td>
           <td>
-            <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'kd', 'down')">-</button>
-            {{ pid.kd }}
-            <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'kd', 'up')">+</button>
+            <div class="pid-value">
+              <div class="minus">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'kd', 'down')">-</button>
+              </div>
+              <div class="value">
+                {{ pid.kd }}
+              </div>
+              <div class="plus">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="tune(pid, 'kd', 'up')">+</button>
+              </div>
+            </div>
           </td>
           <td>{{ pid.minimum_output }}</td>
           <td>{{ pid.maximum_output }}</td>

@@ -4,20 +4,20 @@ import { Subscription } from "rxjs/Subscription";
 import { ElicopterService } from "app/shared/elicopter/elicopter.service";
 
 @Component({
-  selector: "home-show",
+  selector:    "app-home-show",
   templateUrl: "home-show.component.html",
-  styleUrls: ["./home-show.component.scss"]
+  styleUrls:   ["./home-show.component.scss"]
 })
 
 export class HomeShowComponent implements OnInit, OnDestroy {
   private loggerChannelSubscriptions: Array<Subscription> = [];
   private statusChannelSubscriptions: Subscription;
-  
+
   private logs: Array<Object> = [];
   private status: Object;
 
   constructor(private elicopterService: ElicopterService) {}
-  
+
   ngOnInit(): void {
     ["error", "info", "warn", "debug"].forEach((level) => {
       this.loggerChannelSubscriptions.push(this.elicopterService.onChannelEvent("logger:" + level, "data").subscribe(data => {

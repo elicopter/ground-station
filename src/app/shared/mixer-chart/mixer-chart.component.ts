@@ -1,22 +1,22 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { AxesChart } from "app/shared/axes-chart/axes-chart";
 import { Subscription } from "rxjs/Subscription";
-import { ElicopterService } from 'app/shared/elicopter/elicopter.service';
+import { ElicopterService } from "app/shared/elicopter/elicopter.service";
 
 @Component({
-  selector:    "mixer-chart",
+  selector:    "app-mixer-chart",
   templateUrl: "mixer-chart.component.html"
 })
 
-export class MixerChartComponent {
+export class MixerChartComponent implements OnInit, OnDestroy {
   private channelSubscription: Subscription;
-  private channelName:string = "black_box:mixer";
-  public chartLabels:string[] = ["2", "1", "3", "4"];
-  public chartLegend:boolean = false;
-  public chartData:any = [
+  private channelName = "black_box:mixer";
+  public chartLabels = ["2", "1", "3", "4"];
+  public chartLegend = false;
+  public chartData = [
     {data: [0, 0, 0, 0]},
   ];
-  public chartOptions:any = {
+  public chartOptions = {
     responsive: true,
     startAngle: 45,
     layout: {
@@ -24,7 +24,7 @@ export class MixerChartComponent {
         top: 10
       }
     },
-    animation:{
+    animation: {
       duration: 0,
       easing: "linear",
       animateScale: false
@@ -43,7 +43,7 @@ export class MixerChartComponent {
   ngOnInit(): void {
     this.channelSubscription = this.elicopterService.onChannelEvent(this.channelName, "data").subscribe(data => {
       this.chartData = [{data: [data["2"], data["1"], data["3"], data["4"]]}];
-    })
+    });
   }
 
   ngOnDestroy(): void {
