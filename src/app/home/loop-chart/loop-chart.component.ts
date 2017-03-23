@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AxesChart } from "app/shared/axes-chart/axes-chart";
 import { Subscription } from "rxjs/Subscription";
 import { ElicopterService } from "app/shared/elicopter/elicopter.service";
@@ -8,56 +8,39 @@ import { ElicopterService } from "app/shared/elicopter/elicopter.service";
   templateUrl: "loop-chart.component.html"
 })
 
-export class LoopChartComponent {
-  private maximumValues: number = 50;
-  private channelName:string = "black_box:loop";
+export class LoopChartComponent implements OnInit, OnDestroy {
+  private maximumValues = 50;
+  private channelName = "black_box:loop";
   private channelSubscription: Subscription;
-  public chartData:Array<any> = [
-    {data: [], label: "Delta", key: "delta_with_last_loop"},
-    {data: [], label: "Loop Duration", key: "complete_last_loop_duration"}
+  public chartData: Array<any> = [
+    {data: [], label: "Delta with last loop", key: "delta_with_last_loop"},
+    {data: [], label: "Loop Duration", key: "complete_last_loop_duration"},
+    {data: [], label: "Delta with last filter update", key: "delta_with_last_filter_update"}
   ];
-  public chartLabels:Array<any> = new Array(this.maximumValues);
-  public chartOptions:any = {
+  public chartLabels: Array<any> = new Array(this.maximumValues);
+  public chartOptions: any = {
     responsive: true,
     tooltips: {
       enabled: false
     },
-    animation:{
+    animation: {
       duration: 0,
       easing: "linear",
       animateScale: false
     }
   };
-  public chartColors:Array<any> = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    }
-  ];
-  public chartLegend:boolean = true;
-  public chartType:string = 'line';
+  public chartLegend = true;
+  public chartType = "line";
 
   constructor(private elicopterService: ElicopterService) {}
 
   ngOnInit(): void {
     this.channelSubscription = this.elicopterService.onChannelEvent(this.channelName, "data").subscribe(data => {
-      for (let dataset of this.chartData) {
-        this.addDataPoint(dataset, data[dataset["key"]])
+      for (const dataset of this.chartData) {
+        this.addDataPoint(dataset, data[dataset["key"]]);
       }
       this.chartData = this.chartData.slice();
-    })
+    });
   }
 
   ngOnDestroy(): void {

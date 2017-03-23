@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AxesChart } from "app/shared/axes-chart/axes-chart";
 import { Subscription } from "rxjs/Subscription";
 import { ElicopterService } from "app/shared/elicopter/elicopter.service";
@@ -8,11 +8,11 @@ import { ElicopterService } from "app/shared/elicopter/elicopter.service";
   templateUrl: "pids-chart.component.html"
 })
 
-export class PIDsChartComponent {
+export class PIDsChartComponent implements OnInit, OnDestroy {
   private channelSubscriptions: Array<Subscription> = [];
-  private channelName:string = "black_box:pids";
+  private channelName = "black_box:pids";
 
-  public chartOptions:any = {
+  public chartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
     tooltips: {
@@ -26,17 +26,17 @@ export class PIDsChartComponent {
         }
       }]
     },
-    animation:{
+    animation: {
       duration: 0,
       easing: "linear",
       animateScale: false
     }
   };
-  public chartPIDs:string[] = ["pitch_rate_pid_controller", "roll_rate_pid_controller", "yaw_rate_pid_controller", "pitch_angle_pid_controller", "roll_angle_pid_controller"];
-  public chartLabels:string[] = ["Pitch Rate", "Roll Rate", "Yaw Rate", "Pitch Angle", "Roll Angle"];
-  public chartLegend:boolean = true;
 
-  public chartData:any[] = [
+  public chartPIDs   = ["pitch_rate_pid_controller", "roll_rate_pid_controller", "yaw_rate_pid_controller", "pitch_angle_pid_controller", "roll_angle_pid_controller"];
+  public chartLabels = ["Pitch Rate", "Roll Rate", "Yaw Rate", "Pitch Angle", "Roll Angle"];
+  public chartLegend = true;
+  public chartData   = [
     {data: [], label: "Propotional"},
     {data: [], label: "Integrative"},
     {data: [], label: "Derivative"},
@@ -48,16 +48,16 @@ export class PIDsChartComponent {
 
   ngOnInit(): void {
     this.chartPIDs.forEach(chartPid => {
-      let index = this.chartPIDs.indexOf(chartPid);
+      const index = this.chartPIDs.indexOf(chartPid);
       this.channelSubscriptions.push(this.elicopterService.onChannelEvent("black_box:" + chartPid, "data").subscribe(data => {
-        this.chartData[0].data[index] = data["proportional_term"]
-        this.chartData[1].data[index] = data["integrative_term"]
-        this.chartData[2].data[index] = data["derivative_term"]
-        this.chartData[3].data[index] = data["error"]
-        this.chartData[4].data[index] = data["output"]
+        this.chartData[0].data[index] = data["proportional_term"];
+        this.chartData[1].data[index] = data["integrative_term"];
+        this.chartData[2].data[index] = data["derivative_term"];
+        this.chartData[3].data[index] = data["error"];
+        this.chartData[4].data[index] = data["output"];
 
         this.chartData = this.chartData.slice();
-      }))
+      }));
     });
 
   }
