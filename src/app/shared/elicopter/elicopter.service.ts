@@ -12,22 +12,22 @@ import { Elicopter } from "app/shared/elicopter/elicopter.model";
 
 @Injectable()
 export class ElicopterService {
-  private elicopters:Array<Elicopter> = [];
-  private SSDPDiscovererURL: string = "http://localhost:4201";
+  private elicopters: Array<Elicopter> = [];
+  private SSDPDiscovererURL = "http://localhost:4201";
   private selectedElicopterSubject: Subject<Elicopter> = new Subject();
   private elicopterSocketSubject: ReplaySubject<Socket> = new ReplaySubject(1);
 
   constructor (private http: Http) {
     this.getSelectedElicopter().subscribe(elicopter => {
-      let elicopterSocket: Socket = new Socket("ws://" + elicopter.address + "/socket");
+      const elicopterSocket: Socket = new Socket("ws://" + elicopter.address + ":" + elicopter.port + "/socket");
       elicopterSocket.connect();
       this.elicopterSocketSubject.next(elicopterSocket);
     });
-    
+
     this.getDiscoveredElicopters().subscribe(discoveredElicopters => {
       discoveredElicopters.map((discoveredElicopter) => {
         this.elicopters.push(new Elicopter(discoveredElicopter));
-      })
+      });
       this.selectedElicopterSubject.next(this.elicopters[0]);
     });
   }
@@ -44,7 +44,7 @@ export class ElicopterService {
 
   onChannelEvent(channelName: string, eventName: string): Observable<Object> {
     let channel: Channel;
-    let observer = (observer) => {
+    const channelEventObserver = (observer) => {
       this.elicopterSocketSubject.subscribe(elicopterSocket => {
         channel = elicopterSocket.channel(channelName, {});
         channel.join();
@@ -54,8 +54,8 @@ export class ElicopterService {
       });
       return () => {
         channel.leave();
-      }
-    }
-    return Observable.create(observer);
+      };
+    };
+    return Observable.create(channelEventObserver);
   }
 }

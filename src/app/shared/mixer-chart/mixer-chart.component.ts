@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { AxesChart } from "app/shared/axes-chart/axes-chart";
 import { Subscription } from "rxjs/Subscription";
-import { ElicopterService } from "../elicopter/elicopter.service";
+import { ElicopterService } from 'app/shared/elicopter/elicopter.service';
 
 @Component({
   selector:    "mixer-chart",

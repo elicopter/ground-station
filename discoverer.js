@@ -1,5 +1,5 @@
 // HTTP
-var http = require("http"),  
+var http = require("http"),
     winston = require("winston");
 // SSDP
 var SSDPClient = require("node-ssdp").Client,
@@ -9,16 +9,20 @@ var elicopters = [];
 
 ssdpClient.on("response", function (headers, statusCode, rinfo) {
   if (headers["ST"] !== "elicopter") { return; }
-  foundElicopter = elicopters.find(function (elicopter) {
+  elicopter = {
+    name: headers["USN"],
+    address: rinfo["address"],
+    port: headers["PORT"]
+  }
+  foundElicopterIndex = elicopters.findIndex(function (elicopter) {
     return elicopter.name === headers["USN"];
   });
-  if (!foundElicopter) {
-    elicopter = {
-      name: headers["USN"],
-      address: rinfo["address"]
-    }
+  if (foundElicopterIndex < 0) {
     elicopters.push(elicopter);
-    winston.info("Found 1 new Elicopter.");
+    winston.info("Found " + elicopter.name + ". " + "Address: " + elicopter.address + " Port: " + elicopter.port);
+  } else if (elicopters[foundElicopterIndex].address != elicopter.address && elicopters[foundElicopterIndex].port != elicopter.port) {
+    elicopters[foundElicopterIndex] = elicopter;
+    winston.info("Update " + elicopter.name + ". " + "Address: " + elicopter.address + " Port: " + elicopter.port);
   }
 });
 

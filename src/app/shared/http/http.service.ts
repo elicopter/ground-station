@@ -9,10 +9,10 @@ export class HttpService extends Http {
 
   constructor(backend: XHRBackend, options: RequestOptions, elicopterService: ElicopterService) {
     elicopterService.getSelectedElicopter().subscribe(elicopter => {
-      this.apiUrl = "http://" + elicopter.address + "/"
+      this.apiUrl = "http://" + elicopter.address + ":" + elicopter.port + "/";
       console.log("Build API url: " + this.apiUrl);
     });
-    super(backend, options);    
+    super(backend, options);
   }
 
   request(request: Request, options?: RequestOptionsArgs): Observable<Response> {
