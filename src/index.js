@@ -1,7 +1,9 @@
 const {app, BrowserWindow} = require("electron")
 const path                 = require("path")
 const url                  = require("url")
-const discover             = require("./discoverer")
+const discoverer           = require("./discoverer")
+const ipc                  = require("electron").ipcMain
+
 let win
 
 function createWindow () {
@@ -22,9 +24,11 @@ function createWindow () {
     win = null
   })
 
-  discover.start();
+  discoverer.start();
+  ipc.on("getAvailableElicopters", function (event, arg) {
+    event.returnValue = discoverer.getAvailableElicopters();
+  })
 }
-
 
 app.setName("Elicopter")
 app.on("ready", createWindow)

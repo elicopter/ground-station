@@ -7,8 +7,14 @@ import { Headers, RequestOptionsArgs, HttpModule, JsonpModule, Http, RequestOpti
 
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
+import "rxjs/add/observable/interval";
+import "rxjs/add/observable/from";
+import "rxjs/add/operator/switchMap";
 import { Subject } from "rxjs/Subject";
 import { Elicopter } from "app/shared/elicopter/elicopter.model";
+
+declare var electron: any;
+export const {ipcRenderer} = electron;
 
 @Injectable()
 export class ElicopterService {
@@ -19,23 +25,30 @@ export class ElicopterService {
 
   constructor (private http: Http) {
     this.getSelectedElicopter().subscribe(elicopter => {
+      console.log("Elicopter found " + elicopter.name);
       const elicopterSocket: Socket = new Socket("ws://" + elicopter.address + ":" + elicopter.port + "/socket");
       elicopterSocket.connect();
       this.elicopterSocketSubject.next(elicopterSocket);
     });
 
-    this.getDiscoveredElicopters().subscribe(discoveredElicopters => {
+    this.pollDiscoveredElicopters().subscribe(discoveredElicopters => {
       discoveredElicopters.map((discoveredElicopter) => {
-        this.elicopters.push(new Elicopter(discoveredElicopter));
+        const elicopter = new Elicopter(discoveredElicopter);
+        const foundElicopter = this.elicopters.find((_elicopter) => {
+          return _elicopter.name === elicopter.name;
+        });
+        if (!foundElicopter) {
+          this.elicopters.push(elicopter);
+          this.selectedElicopterSubject.next(elicopter);
+        }
       });
-      this.selectedElicopterSubject.next(this.elicopters[0]);
     });
   }
 
-  getDiscoveredElicopters(): Observable<any> {
-    return this.http.get(this.SSDPDiscovererURL)
-                    .map(response => response.json())
-                    .catch(error => Observable.throw(error));
+  pollDiscoveredElicopters(): Observable<any> {
+    return Observable.interval(1000)
+      .switchMap(() => Observable.from([ipcRenderer.sendSync("getAvailableElicopters", null)]))
+      .catch(error => Observable.throw(error));
   }
 
   getSelectedElicopter(): Subject<any> {
