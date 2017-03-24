@@ -1,10 +1,7 @@
-// HTTP
-var http = require("http"),
-    winston = require("winston");
-// SSDP
+var http       = require("http"),
+    winston    = require("winston");
 var SSDPClient = require("node-ssdp").Client,
     ssdpClient = new SSDPClient();
-
 var elicopters = [];
 
 ssdpClient.on("response", function (headers, statusCode, rinfo) {
@@ -32,7 +29,7 @@ var searchElicopters = function() {
 
 module.exports = {
   start: function() {
-    winston.info("Starting Web Server...");
+    winston.info("Starting Discover Web Server...");
     var server = http.createServer(function (req, res) {
       res.setHeader("Content-Type", "application/json");
       res.setHeader("Access-Control-Allow-Origin", "*");
