@@ -4,12 +4,13 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently --raw 'node discoverer.js' 'ng serve'",
-    "build": "ng build",
+    "start": "ENV=development concurrently --raw 'ng serve' 'electron src'",
+    "build": "ENV=production ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "main": "main.js",
   "private": true,
   "dependencies": {
     "@angular/common": "^2.4.0",
@@ -22,6 +23,7 @@
     "@angular/router": "^3.4.0",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.21",
     "@swimlane/ngx-charts": "^4.3.0",
+    "@types/electron": "^1.4.34",
     "@types/geojson": "^1.0.0",
     "@types/leaflet": "^1.0.56",
     "@types/phoenix": "0.0.4",
@@ -29,6 +31,7 @@
     "chart.js": "^2.5.0",
     "concurrently": "^3.4.0",
     "core-js": "^2.4.1",
+    "jquery": "^3.2.1",
     "leaflet": "^1.0.3",
     "ng2-charts": "^1.5.0",
     "node-ssdp": "^3.2.0",
