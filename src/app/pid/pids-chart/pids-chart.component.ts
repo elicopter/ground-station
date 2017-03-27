@@ -21,8 +21,8 @@ export class PIDsChartComponent implements OnInit, OnDestroy {
     scales: {
       yAxes: [{
         ticks: {
-          min: -500,
-          max: 500
+          min: -300,
+          max: 300
         }
       }]
     },
@@ -37,10 +37,11 @@ export class PIDsChartComponent implements OnInit, OnDestroy {
   public chartLabels = ["Pitch Rate", "Roll Rate", "Yaw Rate", "Pitch Angle", "Roll Angle"];
   public chartLegend = true;
   public chartData   = [
+    {data: [], label: "Error"},
+    {data: [], label: "Setpoint"},
     {data: [], label: "Propotional"},
     {data: [], label: "Integrative"},
     {data: [], label: "Derivative"},
-    {data: [], label: "Error"},
     {data: [], label: "Output"}
   ];
 
@@ -50,11 +51,12 @@ export class PIDsChartComponent implements OnInit, OnDestroy {
     this.chartPIDs.forEach(chartPid => {
       const index = this.chartPIDs.indexOf(chartPid);
       this.channelSubscriptions.push(this.elicopterService.onChannelEvent("black_box:" + chartPid, "data").subscribe(data => {
-        this.chartData[0].data[index] = data["proportional_term"];
-        this.chartData[1].data[index] = data["integrative_term"];
-        this.chartData[2].data[index] = data["derivative_term"];
-        this.chartData[3].data[index] = data["error"];
-        this.chartData[4].data[index] = data["output"];
+        this.chartData[0].data[index] = data["error"];
+        this.chartData[1].data[index] = data["setpoint"];
+        this.chartData[2].data[index] = data["proportional_term"];
+        this.chartData[3].data[index] = data["integrative_term"];
+        this.chartData[4].data[index] = data["derivative_term"];
+        this.chartData[5].data[index] = data["output"];
 
         this.chartData = this.chartData.slice();
       }));

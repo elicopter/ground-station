@@ -11,8 +11,8 @@ export class FilterChartComponent extends AxesChart {
   constructor(elicopterService: ElicopterService) {
     let datasets:Array<any> = [
       {data: [], label: "Pitch", key: "pitch"},
-      {data: [], label: "Roll", key: "roll"},
-      {data: [], label: "Yaw", key: "yaw"}
+      {data: [], label: "Roll", key: "roll"}
+      // {data: [], label: "Yaw", key: "yaw"}
     ];
     super(elicopterService, "black_box:filter", datasets);
   }
