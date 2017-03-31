@@ -1,31 +1,42 @@
-# Elicopter Ground Station [![Slack Status](https://elicopter-slackin.herokuapp.com/badge.svg)](https://elicopter-slackin.herokuapp.com/)
+![Elicopter Ground Station](logo.png)
+=========
 
-Ground station for Elicopter core flight controller.
+Elicopter Ground Station is the control center for the [Elicopter Core](https://github.com/elicopter/core) flight controller.
 
-## Getting Started
+> Note: Elicopter Ground Station is still under heavy development.
 
-Install dependencies:
+## Screenschots
+
+* Dasboard
+
+![Dashboard](screenshot_home.png)
+
+* Sensors
+
+![Sensors](screenshot_sensors.png)
+
+* PID Tuning
+
+![PID Tuning](screenshot_pids.png)
+
+## Develop
+
+* Install dependencies:
 ```
-mix deps.get
+npm install -g electron
+npm install -g angular-cli
 npm install
 ```
 
-Run locally:
+* Start the development server:
 ```
-mix phoenix.server
+npm start
 ```
 
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://github.com/elicopter/elicopter/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Authors
-
-* **Loic Vigneron** - [Spin42](https://github.com/spin42)
-* **Marc Lainez** - [Spin42](https://github.com/spin42)
-* **Thibault Poncelet** - [Spin42](https://github.com/spin42)
-* **Who's next? :)**
-
 ## License
 
-This project is licensed under the MIT License - see the [https://github.com/elicopter/elicopter/blob/master/LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/elicopter/elicopter/blob/master/LICENSE.md) file for details.

@@ -1,0 +1,37 @@
+table {
+  table-layout: fixed;
+  text-align: center;
+
+  thead {
+    th {
+      text-align: center;
+    }
+  }
+}
+
+.pids {
+
+  .pid-value {
+    display:flex;
+
+    button {
+      width: 100%;
+    }
+
+    .minus, .value, .plus {
+      flex: 1;
+    }
+
+    .minus {
+      text-align: left;
+    }
+
+    .value {
+      text-align: center;
+    }
+
+    .plus {
+      text-align: right;
+    }
+  }
+}

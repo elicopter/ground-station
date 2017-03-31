@@ -1,0 +1,96 @@
+<div class="row full-height">
+  <div class="col-md-6 full-height">
+    <h2>
+      Logs
+    </h2>
+    <table class="table table-sm">
+      <!--<thead>
+        <tr>
+          <th>Level</th>
+          <th>Message</th>
+        </tr>
+      </thead>-->
+      <tbody class="logs">
+        <tr *ngFor="let log of logs">
+          <td>
+            {{ log.level }}
+          </td>
+          <td>
+            {{ log.timestamp  | date: "hh-mm" }}
+          </td>
+          <td>
+            <pre>{{ log.message }}</pre>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="status" class="col-md-6">
+    <h2>
+      Status
+    </h2>
+    <div class="row">
+      <div class="col-md-3 metric-outer">
+        <div class="metric-inner">
+          <span *ngIf="status.armed">Armed</span>
+          <span *ngIf="!status.armed">Disarmed</span>
+        </div>
+        <span class="metric-name">Motors</span>
+      </div>
+      <div class="col-md-3 metric-outer">
+        <div class="metric-inner">
+          <span>{{ status.flight_mode }}</span>
+        </div>
+        <span class="metric-name">Flight Mode</span>
+      </div>
+      <div class="col-md-3 metric-outer">
+        <div class="metric-inner">
+          <span>{{ status.uptime }}</span>
+        </div>
+        <span class="metric-name">Uptime</span>
+      </div>
+      <div class="col-md-3 metric-outer">
+        <div class="metric-inner">
+          <span>{{ status.network }}</span>
+        </div>
+        <span class="metric-name">Network</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <loop-chart></loop-chart>
+      </div>
+    </div>
+    <div class="row full-height">
+      <div class="col-md-12 processes">
+        <h3>Processes</h3>
+        <table class="table table-sm">
+
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Message Queue</th>
+              <th>Heap</th>
+              <th>Stack</th>
+              <th>Memory</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let process of status.processes">
+              <td>{{ process.name }}</td>
+              <td>{{ process.status }}</td>
+              <td>{{ process.message_queue_size }}</td>
+              <td>{{ process.heap_size }}</td>
+              <td>{{ process.stack_size }}</td>
+              <td>{{ (process.memory / (1024*1014)).toFixed(2) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

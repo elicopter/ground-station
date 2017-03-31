@@ -1,0 +1,26 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" [routerLink]="['/']"><img src="assets/images/logo.svg" /></a>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#" [routerLink]="['/']">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" [routerLink]="['/pids']">PIDs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" [routerLink]="['/sensors']">Sensors</a>
+      </li>
+    </ul>
+
+    <span *ngIf="elicopter" class="navbar-text">
+      {{elicopter.name}} connected
+    </span>
+    <span *ngIf="!elicopter" class="navbar-text">
+      Elicopter not found
+    </span>
+  </div>
+</nav>
