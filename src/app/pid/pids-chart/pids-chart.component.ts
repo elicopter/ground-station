@@ -14,6 +14,7 @@ export class PIDsChartComponent implements OnInit, OnDestroy {
 
   public chartOptions = {
     scaleShowVerticalLines: false,
+    animation: false,
     responsive: true,
     tooltips: {
       enabled: false
@@ -26,11 +27,6 @@ export class PIDsChartComponent implements OnInit, OnDestroy {
         }
       }]
     },
-    animation: {
-      duration: 0,
-      easing: "linear",
-      animateScale: false
-    }
   };
 
   public chartPIDs   = ["pitch_rate_pid_controller", "roll_rate_pid_controller", "yaw_rate_pid_controller", "pitch_angle_pid_controller", "roll_angle_pid_controller"];

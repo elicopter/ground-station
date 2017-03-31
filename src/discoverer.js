@@ -2,7 +2,15 @@ var http       = require("http"),
     winston    = require("winston");
 var SSDPClient = require("node-ssdp").Client,
     ssdpClient = new SSDPClient();
-var elicopters = [];
+var elicopters = [
+  // {
+  //       name: "FIXED Elicopter",
+  //       address: "192.168.88.200",
+  //       port: "80"
+  //       // address: "localhost",
+  //       // port: "4000"
+  // }
+];
 const ipc      = require("electron").ipcMain
 
 module.exports = {

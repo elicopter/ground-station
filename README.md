@@ -5,6 +5,20 @@ Elicopter Ground Station is the control center for the [Elicopter Core](https://
 
 > Note: Elicopter Ground Station is still under heavy development.
 
+## Screenschots
+
+* Dasboard
+
+![Dashboard](screenshot_home.png)
+
+* Sensors
+
+![Sensors](screenshot_sensors.png)
+
+* PID Tuning
+
+![PID Tuning](screenshot_pids.png)
+
 ## Develop
 
 * Install dependencies:

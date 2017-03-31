@@ -10,7 +10,7 @@ import { ElicopterService } from "app/shared/elicopter/elicopter.service";
 
 export class PIDIndexComponent implements OnInit {
   private pids: Array<any>;
-  private tuneStep: number = 1 / 10;
+
 
   constructor(private pidService: PidService, private elicopterService: ElicopterService) {}
 
@@ -24,10 +24,14 @@ export class PIDIndexComponent implements OnInit {
 
   tune(pid, parameter, operation) {
     let newValue = pid[parameter];
+    let tuneStep: number = 1 / 10;
+    if (parameter == "kd") {
+      tuneStep = 1/100;
+    }
     if (operation === "up") {
-      newValue += this.tuneStep;
+      newValue += tuneStep;
     } else {
-      newValue -= this.tuneStep;
+      newValue -= tuneStep;
     }
     newValue = Math.round(newValue * 100) / 100;
     this.pidService.tune(pid, parameter, newValue).subscribe(() => {
